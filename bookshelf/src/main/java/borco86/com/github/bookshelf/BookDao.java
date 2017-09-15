@@ -22,18 +22,33 @@ public class BookDao {
 	public List<Book> getBookList() {
 		return this.bookList;
 	}
-	
+
 	public Book getBookByTitle(String title) {
 		String formattedTitle = utils.formatTitle(title);
-		//TODO replace with java 8 streams maybe
-		for(Book book : bookList) {
-			if(utils.formatTitle(book.getTitle()).equals(formattedTitle)) {
+		// TODO replace with java 8 streams maybe
+		for (Book book : bookList) {
+			if (utils.formatTitle(book.getTitle()).equals(formattedTitle)) {
 				return book;
-			}else if(utils.formatTitle(book.getTitle()).contains(formattedTitle)) {
+			} else if (utils.formatTitle(book.getTitle()).contains(formattedTitle)) {
 				return book;
 			}
 		}
 		return new Book();
+	}
+
+	public void postBook(Book book) {
+		String title = book.getTitle();
+		String author = book.getAuthor();
+
+		String[] array = utils.limitStringsLength(title, author);
+		String lmitedTitle = array[0];
+		String limitedAuthor = array[1];
+
+		book.setTitle(lmitedTitle);
+		book.setAuthor(limitedAuthor);
+
+		bookList.add(book);
+		utils.sortList(bookList);
 	}
 
 	private void loadExampleBooks() {
