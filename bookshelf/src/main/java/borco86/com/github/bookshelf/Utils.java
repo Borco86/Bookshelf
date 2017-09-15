@@ -28,11 +28,11 @@ public class Utils {
 		}
 		return limitedTitle;
 	}
-	
+
 	public String[] limitStringsLength(String title, String author) {
 		String limitedTitle = limitStringLength(title);
 		String limitedAuthor = limitStringLength(author);
-		String[] array = {limitedTitle,limitedAuthor};
+		String[] array = { limitedTitle, limitedAuthor };
 		return array;
 	}
 

@@ -10,15 +10,32 @@ import java.util.List;
  */
 
 public class BookDao {
-	
+
 	private List<Book> bookList;
-	
+	private Utils utils = new Utils();
+
 	public BookDao() {
 		bookList = new ArrayList<>();
 		loadExampleBooks();
 	}
+
+	public List<Book> getBookList() {
+		return this.bookList;
+	}
 	
-	
+	public Book getBookByTitle(String title) {
+		String formattedTitle = utils.formatTitle(title);
+		//TODO replace with java 8 streams maybe
+		for(Book book : bookList) {
+			if(utils.formatTitle(book.getTitle()).equals(formattedTitle)) {
+				return book;
+			}else if(utils.formatTitle(book.getTitle()).contains(formattedTitle)) {
+				return book;
+			}
+		}
+		return new Book();
+	}
+
 	private void loadExampleBooks() {
 
 		Book exampleBook = new Book();
@@ -45,6 +62,7 @@ public class BookDao {
 		exampleBook5.setTitle("The Conquering Sword of Conan");
 		exampleBook5.setAuthor("Robert E. Howard");
 		bookList.add(exampleBook5);
+		utils.sortList(bookList);
 	}
 
 }
